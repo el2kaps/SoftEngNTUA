@@ -1,0 +1,44 @@
+[
+ 
+  {
+    "value": "SessionsPerPoint",
+    "label": "Sessions Per Point"
+  },
+  {
+    "value": "SessionsPerEV",
+    "label": "Sessions Per EV"
+  },
+  {
+    "value": "SessionsPerStation",
+    "label": "Sessions Per Station"
+  },
+  {
+    "value": "SessionsPerProvider",
+    "label": "Sessions Per Provider"
+  },
+  {
+    "value": "Chhistory",
+    "label": "Charging History"
+  },
+  {
+    "value": "providerbilling",
+    "label": "Operator Income for the Last Month"
+  },
+  {
+    "value":"options",
+    "label":"Chraging Options"
+  },
+  {
+    "value":"userbilling",
+    "label":"User Month Billing"
+  },
+  {
+    "value":"evinfo",
+    "label":"Vechicle Informations"
+  },
+  {
+    "value":"duration",
+    "label":"Approximate Charging Duration"
+  }
+
+]
