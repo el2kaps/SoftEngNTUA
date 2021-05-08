@@ -1,0 +1,84 @@
+plugins {
+    id "java"
+    id "application"
+    id "idea"
+}
+
+repositories {
+    jcenter()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+}
+
+dependencies {
+    def slf4jVersion = "1.7.30"
+    def picocliVersion = "4.1.4"
+    def junit4Version = "4.13"
+    def junit5Version = "5.6.0"
+
+    implementation "info.picocli:picocli:${picocliVersion}"
+    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    implementation project(':data-model'), project(':rest-api-client')
+
+    runtimeOnly "org.slf4j:slf4j-simple:${slf4jVersion}"
+
+    testImplementation "org.mockito:mockito-junit-jupiter:3.2.0"
+    testImplementation "com.ginsberg:junit5-system-exit:1.0.0"
+    testImplementation("com.github.stefanbirkner:system-rules:1.17.2") {
+        exclude group:"junit"
+    }
+    testImplementation "junit:junit:${junit4Version}"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:${junit5Version}"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junit5Version}"
+
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher:1.6.0"
+    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:${junit5Version}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junit5Version}"
+
+    annotationProcessor "info.picocli:picocli-codegen:${picocliVersion}"
+
+compile group: 'com.opencsv', name: 'opencsv', version: '4.6'
+compile group: 'org.apache.httpcomponents', name: 'httpmime', version: '4.3.1'
+compile "org.apache.httpcomponents:httpcore:4.2.4"
+}
+
+application {
+       applicationName = "evechicle_67"
+    mainClassName = 'gr.ntua.ece.softeng2021.cli.App'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    // Include parameter names in bytecode so they can be accessed in tests
+    options.compilerArgs += ["-parameters"]
+}
+
+test {
+    useJUnitPlatform {
+        includeEngines 'junit-jupiter', 'junit-vintage'
+    }
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+def generatedResources = "$buildDir/generated-resources/main"
+sourceSets {
+    main {
+        output.dir(generatedResources, builtBy: "generateVersionTxt")
+    }
+}
+
+task generateVersionTxt {
+    description "Creates a version.txt file with build info that is added to the root of the jar"
+    doLast {
+        new File(generatedResources).mkdirs()
+        def generated = new File(generatedResources, "version.txt")
+        generated.text =
+            """\
+            |Version: ${rootProject.version}
+            |Application-name: ${project.name}
+            |""".stripMargin()
+     }
+ }

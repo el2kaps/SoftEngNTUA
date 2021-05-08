@@ -1,0 +1,112 @@
+buildscript {
+  repositories {
+    jcenter {
+        url "http://jcenter.bintray.com/"
+    }
+  }
+}
+
+plugins {
+    // Apply the java plugin to add support for Java
+    id 'java'
+
+    // Apply the application plugin to add support for building a CLI application.
+    id 'application'
+}
+
+allprojects {
+repositories {
+    jcenter {
+        url "http://jcenter.bintray.com/"
+    }
+
+  }
+}
+
+repositories {
+    jcenter()
+
+
+mavenCentral()
+
+    maven {
+        url "https://maven.restlet.talend.com/"
+    }
+
+}
+
+dependencies {
+
+    def slf4jVersion = "1.7.30"
+    def picocliVersion = "4.1.4"
+    def junit4Version = "4.13"
+    def junit5Version = "5.6.0"
+
+    implementation project(':data-model'), project(':rest-api-client')
+
+
+    //implementation "com.google.code.gson:gson:2.8.2", "org.codehaus.groovy:groovy-all:2.5.8"
+
+    implementation "info.picocli:picocli:${picocliVersion}"
+    annotationProcessor "info.picocli:picocli-codegen:${picocliVersion}"
+
+    testImplementation("com.github.stefanbirkner:system-rules:1.17.2") {
+        exclude group:"junit"
+    }
+
+    testImplementation "junit:junit:${junit4Version}"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junit5Version}"
+
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher:1.6.0"
+    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:${junit5Version}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junit5Version}"
+
+
+    testImplementation "org.junit.jupiter:junit-jupiter-params:${junit5Version}"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junit5Version}"
+
+    //compile group: 'com.opencsv', name: 'opencsv', version: '4.6'
+    //compile group: 'org.apache.httpcomponents', name: 'httpmime', version: '4.3.1'
+    //compile "org.apache.httpcomponents:httpcore:4.2.4"
+
+
+}
+
+application {
+    applicationName = "evechicle_67"
+    mainClassName = 'gr.ntua.ece.softeng2021.cli.App'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    // Include parameter names in bytecode so they can be accessed in tests
+    options.compilerArgs += ["-parameters"]
+}
+
+test {
+    useJUnitPlatform {
+        includeEngines 'junit-jupiter', 'junit-vintage'
+    }
+testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+def generatedResources = "$buildDir/generated-resources/main"
+sourceSets {
+    main {
+        output.dir(generatedResources, builtBy: "generateVersionTxt")
+    }
+}
+
+task generateVersionTxt {
+    description "Creates a version.txt file with build info that is added to the root of the jar"
+    doLast {
+        new File(generatedResources).mkdirs()
+        def generated = new File(generatedResources, "version.txt")
+        generated.text =
+            """\
+            |Version: ${rootProject.version}
+            |Application-name: ${project.name}
+            |""".stripMargin()
+     }
+ }
