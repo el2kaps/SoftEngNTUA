@@ -1,0 +1,75 @@
+plugins {
+  id 'java' //for java project
+  id 'war' //for generating war (web app archive) files
+  //id 'org.gretty' version '3.0.1' //web app development plugin
+  //id 'org.akhikhl.gretty' version '2.0.0'
+  //id 'org.flywaydb.flyway' version '6.0.8'
+  //id 'groovy'
+}
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+//project.group = ...
+//project.version = ...
+
+repositories {
+jcenter()
+mavenCentral()
+
+maven {
+url "https://maven.restlet.talend.com/"
+}
+}
+
+dependencies {
+implementation localGroovy()
+//compile project(':data-model')
+compile "javax.servlet:javax.servlet-api:3.1.0" //the Java servlet libraries
+compile group: 'org.restlet.jse', name: 'org.restlet.ext.json', version: '2.4.0'
+compile "org.restlet.jee:org.restlet:2.4.2" //for writing RESTful APIs
+compile "com.google.code.gson:gson:2.8.2" //json library
+compile "org.apache.commons:commons-dbcp2:2.7.0" //db connection pool
+compile "org.springframework:spring-jdbc:5.2.2.RELEASE" //spring JDBC classes
+compile "org.flywaydb:flyway-core:6.0.1"
+compile "org.slf4j:slf4j-api:1.7.25"
+compile "org.slf4j:slf4j-log4j12:1.7.25"
+compile "log4j:log4j:1.2.17"
+//testCompile 'org.codehaus.groovy:groovy-all:2.4.11'
+compile group:'commons-fileupload', name: 'commons-fileupload', version: '1.3'
+compile group: 'org.restlet.jee', name: 'org.restlet.ext.fileupload', version: '2.3.1'
+compile group: 'com.opencsv', name: 'opencsv', version: '4.6'
+
+//testCompile project(':rest-api-client')
+//testCompile 'junit:junit:4.12'
+//testCompile localGroovy()
+//testCompile 'org.codehaus.groovy:groovy-all:2.4.11'
+//testCompile 'org.spockframework:spock-core:1.3-groovy-2.5'
+//testCompile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.30'
+
+providedRuntime "javax.servlet:javax.servlet-api:3.1.0" //provided by the servlet container at runtime
+
+runtime "org.restlet.jee:org.restlet.ext.servlet:2.4.2" //Servlet adapter for Restlet framework
+
+//runtime "mysql:mysql-connector-java:8.0.18" //the MySQL JDBC driver
+
+//gretty "mysql:mysql-connector-java:8.0.18" //make sure it is also available to the grety plugin
+}
+/*
+gretty {
+//scanInterval = 0 //disable hot deployment
+httpEnabled = false
+httpsEnabled = true
+httpPort = 8765
+httpsPort = 8765
+contextPath = ''
+//servletContainer = 'tomcat8' //use the default (jetty)
+//servletContainer = 'jetty9'
+//integrationTestTask = 'test'
+}
+
+
+*/
+test {
+useJUnit()
+}
