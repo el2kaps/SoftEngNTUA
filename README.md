@@ -43,5 +43,5 @@ cd front-end
 yarn
 yarn start
 ```
-**System's Architecture**
+**System's Architecture (simplified)**
 ![image](https://user-images.githubusercontent.com/63153771/111076739-391daf00-84f6-11eb-93ea-23bcc1363c04.png)
