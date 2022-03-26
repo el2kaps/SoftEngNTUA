@@ -1,7 +1,8 @@
 ### Software Engineering 
 This project is part of the course "Software Engineering" <br>
 School of ECE, National Technical University of Athens 2020-2021 <br>
-Team "SmartEMobility": <br>
+
+**Team "SmartEMobility":** <br>
 Achlatis Stefanos-Stamatis <br>
 Christophidi Georgia <br>
 Kapsali Eleni-Elpida <br>
