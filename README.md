@@ -18,7 +18,7 @@ REST API runs at base URL: https://localhost:8765/evcharge/api/ <br>
 
 **Back-end**
 * Restlet framework
-* MySQL Connector/J
+* MySQL Connector/J <img src="https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white" />
 * Spring JDBC <img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white" />
 * To start back-end run:
 ```
