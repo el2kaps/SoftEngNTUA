@@ -12,14 +12,14 @@ REST API runs at base URL: https://localhost:8765/evcharge/api/ <br>
 
 **Technology Stack**
 * Java 11
-* Groovy για το testing
-* Gradle build tool
+* Groovy για το testing <img src="https://img.shields.io/badge/apache%20Groovy-4298B8?style=for-the-badge&logo=apachegroovy&logoColor=white" />
+* Gradle build tool <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white" />
 * Spock testing framework
 
 **Back-end**
 * Restlet framework
 * MySQL Connector/J
-* Spring JDBC
+* Spring JDBC <img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white" />
 * To start back-end run:
 ```
 cd back-end
@@ -35,7 +35,7 @@ cd cli-client
 ./gradle build ./gradlew installDist ./build/install/evcharge_67/bin/evcharge_67 -h
 ```
 **Front-end**
-* React
+* React <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
 * CRA (Create-React-App)
 * To start front-end run:
 ```
